@@ -13,6 +13,7 @@
 		2A5AC73225BF002000424B19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A5AC73025BF002000424B19 /* Main.storyboard */; };
 		2A5AC73425BF002600424B19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5AC73325BF002600424B19 /* Assets.xcassets */; };
 		2A5AC73725BF002600424B19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A5AC73525BF002600424B19 /* LaunchScreen.storyboard */; };
+		2A5AC74125C818FB00424B19 /* ArticreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC74025C818FB00424B19 /* ArticreViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		2A5AC73325BF002600424B19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A5AC73625BF002600424B19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2A5AC73825BF002600424B19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A5AC74025C818FB00424B19 /* ArticreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticreViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				2A5AC72A25BF002000424B19 /* AppDelegate.swift */,
 				2A5AC72C25BF002000424B19 /* SceneDelegate.swift */,
 				2A5AC72E25BF002000424B19 /* ViewController.swift */,
+				2A5AC74025C818FB00424B19 /* ArticreViewController.swift */,
 				2A5AC73025BF002000424B19 /* Main.storyboard */,
 				2A5AC73325BF002600424B19 /* Assets.xcassets */,
 				2A5AC73525BF002600424B19 /* LaunchScreen.storyboard */,
@@ -140,6 +143,7 @@
 				2A5AC72F25BF002000424B19 /* ViewController.swift in Sources */,
 				2A5AC72B25BF002000424B19 /* AppDelegate.swift in Sources */,
 				2A5AC72D25BF002000424B19 /* SceneDelegate.swift in Sources */,
+				2A5AC74125C818FB00424B19 /* ArticreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
