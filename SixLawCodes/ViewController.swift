@@ -20,17 +20,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         cell.textLabel!.text = sixCodes[indexPath.row]
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {  // cellがタップされたときに呼ばれる処理
+        let storyboard = UIStoryboard(name: "Article", bundle: nil)  //storyboardクラスのインスタンスとしてArticle.storyboardを指定
+        let vc = storyboard.instantiateViewController(identifier: "article")  //Article.storyboard中の"article"をIDとして持つviewを指定
+        self.navigationController?.pushViewController(vc, animated: true)
+        //    let storyboard: UIStoryboard = self.storyboard!
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+
+
+
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ArticleSegue"{
-            
-    }
-        
+    
 
 }
-}
+
