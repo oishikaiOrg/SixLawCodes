@@ -6,6 +6,20 @@
 //
 
 import UIKit
+import SWXMLHash
+
+public struct Chapter: XMLIndexerDeserializable {
+    var ChapterTitle : String = ""
+    
+    init(ChapterTitle: String){
+        self.ChapterTitle = ChapterTitle
+    }
+    public static func deserialize(_ node: XMLIndexer) throws -> Chapter{
+        return try Chapter (
+            ChapterTitle: node["ChapterTitle"].value()
+            )
+    }
+}
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -38,7 +52,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let url = URL(string: "https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
 
         let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-            print(response)
+            do{
+                let xml = SWXMLHash.parse(data!)
+                print("r")
+            }catch{
+                
+            }
         }
         task.resume()
     }
