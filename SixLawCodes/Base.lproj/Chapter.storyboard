@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Articre View Controller-->
+        <!--Chapter View Controller-->
         <scene sceneID="hMp-0S-5Gv">
             <objects>
-                <viewController storyboardIdentifier="article" id="rlQ-Ea-qHC" customClass="ArticreViewController" customModule="SixLawCodes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chapter" id="rlQ-Ea-qHC" customClass="ChapterViewController" customModule="SixLawCodes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1sh-Eh-qM0">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Article" id="cPR-8f-HFf">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chapter" id="cPR-8f-HFf">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cPR-8f-HFf" id="g8X-bJ-I92">
@@ -30,6 +30,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="rlQ-Ea-qHC" id="foi-Sr-Jzc"/>
+                                    <outlet property="delegate" destination="rlQ-Ea-qHC" id="Upm-eF-a3f"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9H9-a7-Y49"/>
