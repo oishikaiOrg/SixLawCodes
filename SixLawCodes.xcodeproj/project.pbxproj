@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2A01E41425D8C28300334738 /* Article.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A01E41225D8C28200334738 /* Article.storyboard */; };
 		2A01E41A25D8C2AB00334738 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01E41925D8C2AB00334738 /* ArticleViewController.swift */; };
+		2A01E41F25D919E300334738 /* Paragraph.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A01E41D25D919E300334738 /* Paragraph.storyboard */; };
+		2A01E42225D91A3400334738 /* ParagraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01E42125D91A3400334738 /* ParagraphViewController.swift */; };
 		2A5AC72B25BF002000424B19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72A25BF002000424B19 /* AppDelegate.swift */; };
 		2A5AC72D25BF002000424B19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72C25BF002000424B19 /* SceneDelegate.swift */; };
 		2A5AC72F25BF002000424B19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72E25BF002000424B19 /* ViewController.swift */; };
@@ -24,6 +26,8 @@
 		238DFF2879D2916332AF1B2A /* Pods-SixLawCodes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SixLawCodes.release.xcconfig"; path = "Target Support Files/Pods-SixLawCodes/Pods-SixLawCodes.release.xcconfig"; sourceTree = "<group>"; };
 		2A01E41325D8C28300334738 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Article.storyboard; sourceTree = "<group>"; };
 		2A01E41925D8C2AB00334738 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
+		2A01E41E25D919E300334738 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Paragraph.storyboard; sourceTree = "<group>"; };
+		2A01E42125D91A3400334738 /* ParagraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphViewController.swift; sourceTree = "<group>"; };
 		2A5AC72725BF002000424B19 /* SixLawCodes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixLawCodes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5AC72A25BF002000424B19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A5AC72C25BF002000424B19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,9 +97,11 @@
 				2A5AC72E25BF002000424B19 /* ViewController.swift */,
 				2A5AC74025C818FB00424B19 /* ChapterViewController.swift */,
 				2A01E41925D8C2AB00334738 /* ArticleViewController.swift */,
+				2A01E42125D91A3400334738 /* ParagraphViewController.swift */,
 				2A5AC73025BF002000424B19 /* Main.storyboard */,
 				2A5AC74925D1875700424B19 /* Chapter.storyboard */,
 				2A01E41225D8C28200334738 /* Article.storyboard */,
+				2A01E41D25D919E300334738 /* Paragraph.storyboard */,
 				2A5AC73325BF002600424B19 /* Assets.xcassets */,
 				2A5AC73525BF002600424B19 /* LaunchScreen.storyboard */,
 				2A5AC73825BF002600424B19 /* Info.plist */,
@@ -165,6 +171,7 @@
 				2A5AC73725BF002600424B19 /* LaunchScreen.storyboard in Resources */,
 				2A5AC74B25D1875700424B19 /* Chapter.storyboard in Resources */,
 				2A5AC73425BF002600424B19 /* Assets.xcassets in Resources */,
+				2A01E41F25D919E300334738 /* Paragraph.storyboard in Resources */,
 				2A01E41425D8C28300334738 /* Article.storyboard in Resources */,
 				2A5AC73225BF002000424B19 /* Main.storyboard in Resources */,
 			);
@@ -220,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5AC72F25BF002000424B19 /* ViewController.swift in Sources */,
+				2A01E42225D91A3400334738 /* ParagraphViewController.swift in Sources */,
 				2A01E41A25D8C2AB00334738 /* ArticleViewController.swift in Sources */,
 				2A5AC72B25BF002000424B19 /* AppDelegate.swift in Sources */,
 				2A5AC72D25BF002000424B19 /* SceneDelegate.swift in Sources */,
@@ -236,6 +244,14 @@
 				2A01E41325D8C28300334738 /* Base */,
 			);
 			name = Article.storyboard;
+			sourceTree = "<group>";
+		};
+		2A01E41D25D919E300334738 /* Paragraph.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A01E41E25D919E300334738 /* Base */,
+			);
+			name = Paragraph.storyboard;
 			sourceTree = "<group>";
 		};
 		2A5AC73025BF002000424B19 /* Main.storyboard */ = {

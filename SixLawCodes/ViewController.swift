@@ -38,9 +38,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {  // cellがタップされたときに呼ばれる処理
-        print(indexPath.row) // 引数のidexpathを数値として受け取る
         let setLawNumber = lawNumber[indexPath.row]
-        
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
@@ -65,7 +63,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             //let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
 //            nextVC.chapterNum = chapterNum
-            print("e")
         }
         task.resume()
     }
