@@ -48,12 +48,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let url = URL(string: "https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
 
         let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+                        
+            let chapterNum = self.countChapter(data: data, indexPath: indexPath.row)
             
-            let xml = XML.parse(data!)
-            
-            let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter"]
-            
-            let chapterNum = text.all?.count ?? 0
             DispatchQueue.main.async { // メインスレッドで行うブロック
                 let storyboard = UIStoryboard(name: "Chapter", bundle: nil)
                 let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
@@ -72,6 +69,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view.
     }
  
+    func countChapter(data: Data?,indexPath : Int) -> Int{
+        let xml = XML.parse(data!)
+        if indexPath == 0 {
+            let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter"]
+            let chapterNum = text.all?.count ?? 0
+            return chapterNum
+        }else if indexPath == 1 {
+            let text1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter"]
+            let text2 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 1, "Chapter"]
 
+            let i = text1.all?.count ?? 0
+            let j = text2.all?.count ?? 0
+            let chapterNum = i + j
+            return chapterNum
+        }
+        return 0
+    }
 }
 
