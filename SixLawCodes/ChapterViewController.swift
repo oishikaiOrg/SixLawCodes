@@ -10,20 +10,24 @@ import SwiftyXMLParser
 
 class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
+    @IBOutlet weak var tableView: UITableView!
+    
     var chapterNum: Int = 0;
     var setLawNumber = ""
     var titleSeq: [String] = []
+    var chapterTitleSeq: [String] = []
+    var partTitle = false
+    var partTitleSeq: [String] = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chapterNum
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "chapter", for: indexPath)
-        if setLawNumber == "明治四十年法律第四十五号" && indexPath.row >= 13{
-            cell.textLabel!.text = "第\(indexPath.row - 12)章"
-        }else{
-            cell.textLabel!.text = "第\(indexPath.row + 1)章"
+        let cell = tableView.dequeueReusableCell(withIdentifier: ChapterListTableViewCell.cellIdentifier, for: indexPath) as! ChapterListTableViewCell
+        cell.chapterTitle.text = chapterTitleSeq[indexPath.row]
+        if self.partTitle == true{
+            cell.partTitle.text = partTitleSeq[indexPath.row]
         }
         return cell
     }
@@ -66,6 +70,8 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let nib = UINib(nibName: ChapterListTableViewCell.cellIdentifier, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: ChapterListTableViewCell.cellIdentifier)
     }
     
     func countArticle (data: Data?, indexPath : Int) -> Int{

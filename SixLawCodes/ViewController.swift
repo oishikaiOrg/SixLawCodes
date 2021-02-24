@@ -27,6 +27,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let sixCodes = ["憲法", "刑法", "民法", "商法", "刑事訴訟法", "民事訴訟法"]
     let lawNumber = ["昭和二十一年憲法","明治四十年法律第四十五号", "明治二十九年法律第八十九号", "明治三十二年法律第四十八号", "昭和二十三年法律第百三十一号", "昭和二十三年法律第百三十一号"]
     
+    var partTitleFlag = false
+    var partTitleSeq:[String] = []
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sixCodes.count
     }
@@ -48,15 +51,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let url = URL(string: "https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
 
         let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-                        
+            self.partTitleSeq = []
             let chapterNum = self.countChapter(data: data, indexPath: indexPath.row)
-            
+            let titleSeq = self.getChapterTitle(data: data, indexPath: indexPath.row, Chap: chapterNum)
             DispatchQueue.main.async { // メインスレッドで行うブロック
                 let storyboard = UIStoryboard(name: "Chapter", bundle: nil)
                 let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
                 self.navigationController?.pushViewController(nextVC, animated: true)
                 nextVC.chapterNum = chapterNum
+                nextVC.chapterTitleSeq = titleSeq
                 nextVC.setLawNumber = self.lawNumber[indexPath.row]
+                nextVC.partTitle = self.partTitleFlag
+                nextVC.partTitleSeq = self.partTitleSeq
             }
             //let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
 //            nextVC.chapterNum = chapterNum
@@ -85,6 +91,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return chapterNum
         }
         return 0
+    }
+    
+    func getChapterTitle(data: Data?,indexPath : Int, Chap : Int) -> [String]{
+        let xml = XML.parse(data!)
+        var titleSeq: [String] = []
+        if indexPath == 0 {
+            for i in 0...(Chap - 1){
+                let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", i, "ChapterTitle"]
+                titleSeq.append(text.element?.text ?? "")
+            }
+        }else if indexPath == 1 {
+            self.partTitleFlag = true
+            let text1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter"]
+            let text2 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 1, "Chapter"]
+
+            let a = text1.all?.count ?? 0
+            let b = text2.all?.count ?? 0
+            
+            for i in 0...(a - 1){
+                let part = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 0, "PartTitle"]
+                let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 0, "Chapter", i, "ChapterTitle"]
+                titleSeq.append(text.element?.text ?? "")
+                self.partTitleSeq.append(part.element?.text ?? "")
+            }
+            
+            for i in 0...(b - 1){
+                let part = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 1, "PartTitle"]
+                let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 1, "Chapter", i, "ChapterTitle"]
+                titleSeq.append(text.element?.text ?? "")
+                self.partTitleSeq.append(part.element?.text ?? "")
+            }
+        }else if indexPath == 2 {
+            
+        }
+        return titleSeq
     }
 }
 

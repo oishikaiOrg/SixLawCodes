@@ -13,6 +13,8 @@
 		2A01E42225D91A3400334738 /* ParagraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01E42125D91A3400334738 /* ParagraphViewController.swift */; };
 		2A01E43025DBF76C00334738 /* SentenceListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01E42E25DBF76C00334738 /* SentenceListTableViewCell.swift */; };
 		2A01E43125DBF76C00334738 /* SentenceListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A01E42F25DBF76C00334738 /* SentenceListTableViewCell.xib */; };
+		2A01E43525E2A2E500334738 /* ChapterListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A01E43425E2A2E400334738 /* ChapterListTableViewCell.xib */; };
+		2A01E43825E2A4B600334738 /* ChapterListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */; };
 		2A5AC72B25BF002000424B19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72A25BF002000424B19 /* AppDelegate.swift */; };
 		2A5AC72D25BF002000424B19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72C25BF002000424B19 /* SceneDelegate.swift */; };
 		2A5AC72F25BF002000424B19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72E25BF002000424B19 /* ViewController.swift */; };
@@ -32,6 +34,8 @@
 		2A01E42125D91A3400334738 /* ParagraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphViewController.swift; sourceTree = "<group>"; };
 		2A01E42E25DBF76C00334738 /* SentenceListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceListTableViewCell.swift; sourceTree = "<group>"; };
 		2A01E42F25DBF76C00334738 /* SentenceListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SentenceListTableViewCell.xib; sourceTree = "<group>"; };
+		2A01E43425E2A2E400334738 /* ChapterListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChapterListTableViewCell.xib; sourceTree = "<group>"; };
+		2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterListTableViewCell.swift; sourceTree = "<group>"; };
 		2A5AC72725BF002000424B19 /* SixLawCodes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixLawCodes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5AC72A25BF002000424B19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A5AC72C25BF002000424B19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,11 +107,13 @@
 				2A01E41925D8C2AB00334738 /* ArticleViewController.swift */,
 				2A01E42125D91A3400334738 /* ParagraphViewController.swift */,
 				2A01E42E25DBF76C00334738 /* SentenceListTableViewCell.swift */,
+				2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */,
 				2A5AC73025BF002000424B19 /* Main.storyboard */,
 				2A5AC74925D1875700424B19 /* Chapter.storyboard */,
 				2A01E41225D8C28200334738 /* Article.storyboard */,
 				2A01E41D25D919E300334738 /* Paragraph.storyboard */,
 				2A01E42F25DBF76C00334738 /* SentenceListTableViewCell.xib */,
+				2A01E43425E2A2E400334738 /* ChapterListTableViewCell.xib */,
 				2A5AC73325BF002600424B19 /* Assets.xcassets */,
 				2A5AC73525BF002600424B19 /* LaunchScreen.storyboard */,
 				2A5AC73825BF002600424B19 /* Info.plist */,
@@ -177,6 +183,7 @@
 				2A5AC73725BF002600424B19 /* LaunchScreen.storyboard in Resources */,
 				2A5AC74B25D1875700424B19 /* Chapter.storyboard in Resources */,
 				2A5AC73425BF002600424B19 /* Assets.xcassets in Resources */,
+				2A01E43525E2A2E500334738 /* ChapterListTableViewCell.xib in Resources */,
 				2A01E41F25D919E300334738 /* Paragraph.storyboard in Resources */,
 				2A01E41425D8C28300334738 /* Article.storyboard in Resources */,
 				2A01E43125DBF76C00334738 /* SentenceListTableViewCell.xib in Resources */,
@@ -234,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5AC72F25BF002000424B19 /* ViewController.swift in Sources */,
+				2A01E43825E2A4B600334738 /* ChapterListTableViewCell.swift in Sources */,
 				2A01E42225D91A3400334738 /* ParagraphViewController.swift in Sources */,
 				2A01E41A25D8C2AB00334738 /* ArticleViewController.swift in Sources */,
 				2A5AC72B25BF002000424B19 /* AppDelegate.swift in Sources */,
