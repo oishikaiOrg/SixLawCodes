@@ -17,6 +17,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     var seq = 0
     var itemCount = 0;
     var ParagraphSentenceCount = 0;
+    var part = 0
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articleNum
@@ -37,32 +38,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             let xml = XML.parse(data!)
             let sequence = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", self.chapterNum,"Article" ,indexPath.row, "Paragraph"]
             self.seq = self.getNumberOfSentence(data: data, indexPath: indexPath.row)
-            print(self.seq)
             self.sentence = self.getSentence(data: data, indexPath: indexPath.row)
-            
-//            for i in 0...(self.seq - 1){
-//                let sentenseSeq = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", self.chapterNum,"Article" , indexPath.row, "Paragraph", i, "ParagraphSentence", "Sentence"]
-////                let itemChecker1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", 4,"Article" , 72, "Paragraph", i, "ParagraphSentence", "Sentence"]
-////                let itemChecker2 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", 0,"Article" , 6, "Paragraph", i, "ParagraphSentence", "Sentence"]
-//                print(sentenseSeq.element?.text)
-//                if(sentenseSeq.element?.text == nil){
-//                    let sentenseSequExeption = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", self.chapterNum,"Article" , indexPath.row, "Paragraph", i]
-//                    let count = sentenseSequExeption.element?.childElements[1].childElements.count ?? 0
-//                    for j in 0...(count - 1){
-//                        print(sentenseSequExeption.element?.childElements[1].childElements[j].text)
-//                        self.sentence.append(sentenseSequExeption.element?.childElements[1].childElements[j].text ?? "")
-//                        print(self.sentence[j])
-//                    }
-////                    sentenseSequ.element?.childElements[1].childElements[0].text
-//                }else{
-//                    self.sentence.append(sentenseSeq.element?.text ?? "")
-//                    print(sentenseSeq.element?.childElements.count)
-//                    if(sentenseSeq.element?.childElements.count ?? 0 >= 4){
-//                        print("hi")
-//                    }
-//                }
-//
-//            }
             
             DispatchQueue.main.async { // メインスレッドで行うブロック
                 let storyboard = UIStoryboard(name: "Paragraph", bundle: nil)
@@ -85,22 +61,53 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     func getNumberOfSentence(data: Data?, indexPath: Int) -> Int{
         let xml = XML.parse(data!)
+        self.itemCount = 0
         if self.setLawNumber == "昭和二十一年憲法"{
             let sequence = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", self.chapterNum,"Article" ,indexPath, "Paragraph"]
             return sequence.all?.count ?? 0
         }else if self.setLawNumber == "明治四十年法律第四十五号"{
-            if indexPath <= 12{
-                let sequence = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter" , self.chapterNum, "Article" ,indexPath, "Paragraph","Item"]
-                let sequence2 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter" , self.chapterNum, "Article" ,indexPath, "Paragraph"]
-                self.itemCount = sequence.all?.count ?? 0
-                self.ParagraphSentenceCount = sequence2.all?.count ?? 0
-                return (sequence.all?.count ?? 0) + (sequence2.all?.count ?? 0)
-            }else{
-                let sequence = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 1, "Chapter" , self.chapterNum, "Article" ,indexPath, "Paragraph", "Item"]
-                let sequence2 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 1, "Chapter" , self.chapterNum, "Article" ,indexPath, "Paragraph"]
-                self.itemCount = sequence.all?.count ?? 0
-                self.ParagraphSentenceCount = sequence2.all?.count ?? 0
-                return (sequence.all?.count ?? 0) + (sequence2.all?.count ?? 0)
+            let Paragraph = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph
+            let ParagraphCnt = Paragraph.all?.count ?? 0
+            var sentenceCnt = 0
+            for i in 0...(ParagraphCnt - 1) {
+                let Psentence = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].ParagraphSentence.Sentence
+                let Isentence = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].Item
+                sentenceCnt += (Psentence.all?.count ?? 0) + (Isentence.all?.count ?? 0)
+                self.itemCount += Isentence.all?.count ?? 0
+                
+            }
+            return sentenceCnt
+        }else if self.setLawNumber == "明治二十九年法律第八十九号"{
+            var sentenceCnt = 0
+            let Try = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section
+            if Try.all?.count == nil {
+                let Paragraph = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph
+                let ParagraphCnt = Paragraph.all?.count ?? 0
+    
+                for i in 0...(ParagraphCnt - 1) {
+                    let ParagraphSen = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].ParagraphSentence.Sentence
+                    sentenceCnt += (ParagraphSen.all?.count ?? 0)
+                }
+                return sentenceCnt
+            }else {
+                var sectionSenCnt : [Int] = []
+                for i in 0...((Try.all?.count ?? 0) - 1) {
+                    let Paragraph = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section[i].Article
+                    let ArtCnt = Paragraph.all?.count ?? 0
+                    for j in 0...(ArtCnt - 1) {
+                        var demandCell = 0
+                        let article = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section[i].Article[j].Paragraph
+                        let ParaCnt = article.all?.count ?? 0
+                        for n in 0...(ParaCnt - 1) {
+                            let para = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section[i].Article[j].Paragraph[n].ParagraphSentence.Sentence
+                            let sentCnt = para.all?.count ?? 0
+                            demandCell += sentCnt
+                        }
+                        let finaldemand = demandCell
+                        sectionSenCnt.append(finaldemand)
+                    }
+                }
+                return sectionSenCnt[indexPath]
             }
         }
         return 0
@@ -131,27 +138,78 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }else if self.setLawNumber == "明治四十年法律第四十五号"{
-            if indexPath <= 12 {
-                if itemCount == 0 {
-                    for i in 0...(self.ParagraphSentenceCount - 1) {
-                        let sequenceSeq = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter" , self.chapterNum, "Article" ,indexPath, "Paragraph", i, "ParagraphSentence", "Sentence"]
-                        sentence.append(sequenceSeq.element?.text ?? "")
-                    }
-                }else{
-                    for i in 0...(self.ParagraphSentenceCount - 1) {
-                        let sequenceSeq = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter" , self.chapterNum, "Article" ,indexPath, "Paragraph", i, "ParagraphSentence", "Sentence"]
-                        sentence.append(sequenceSeq.element?.text ?? "")
-                    }
-                    
-                    for i in 0...(self.itemCount - 1) {
-                        let sequenceSeq = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter" , self.chapterNum, "Article" ,indexPath, "Paragraph", 0, "Item", i, "ItemSentence", "Sentence"]
-                        let sequenceTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter" , self.chapterNum, "Article" ,indexPath, "Paragraph", 0, "Item", i, "ItemTitle"]
-                        sentence.append((sequenceTitle.element?.text ?? "") + " :\n" + (sequenceSeq.element?.text ?? ""))
+            if itemCount == 0 {
+                let Paragraph = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph
+                let ParagraphCnt = Paragraph.all?.count ?? 0
+                for i in 0...(ParagraphCnt - 1) {
+                    let sentenceGet = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].ParagraphSentence.Sentence
+                    let sentenceCnt = sentenceGet.all?.count ?? 0
+                    for j in 0...(sentenceCnt - 1) {
+                        let sentences = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].ParagraphSentence.Sentence[j]
+                        print(sentences.element?.text)
+                        sentence.append(sentences.element?.text ?? "")
                     }
                 }
+            }else {
+                let Paragraph = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph
+                let ParagraphCnt = Paragraph.all?.count ?? 0
+                for i in 0...(ParagraphCnt - 1) {
+                    let sentenceGet = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].ParagraphSentence.Sentence
+                    let sentenceCnt = sentenceGet.all?.count ?? 0
+                    for j in 0...(sentenceCnt - 1) {
+                        let sentences = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].ParagraphSentence.Sentence[j]
+                        print(sentences.element?.text)
+                        sentence.append(sentences.element?.text ?? "")
+                    }
+                    
+                    for j in 0...(self.itemCount - 1) {
+                        let sentences = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].Item[j].ItemSentence.Sentence
+                        let sentencesTitle = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].Item[j].ItemTitle
+                        sentence.append((sentencesTitle.element?.text ?? "") + " :\n" + (sentences.element?.text ?? ""))
+                    }
+                }
+                return sentence
+            }
+            return sentence
+        }else if self.setLawNumber == "明治二十九年法律第八十九号" {
+            let Try = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section
+            if Try.all?.count == nil {
+                let Paragraph = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph
+                let ParagraphCnt = Paragraph.all?.count ?? 0
+                for i in 0...(ParagraphCnt - 1) {
+                    let sentenceGet = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].ParagraphSentence.Sentence
+                    let sentenceCnt = sentenceGet.all?.count ?? 0
+                    for j in 0...(sentenceCnt - 1) {
+                        let textGet = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[indexPath].Paragraph[i].ParagraphSentence.Sentence[j]
+                        let text = textGet.element?.text ?? ""
+                        sentence.append(text)
+                    }
+                }
+                return sentence
+            }else {
+                var sentenceArray : [[String]] = []
+                for i in 0...((Try.all?.count ?? 0) - 1) {
+                    let Paragraph = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section[i].Article
+                    let ArtCnt = Paragraph.all?.count ?? 0
+                    for j in 0...(ArtCnt - 1) {
+                        var sentenceBit : [String] = []
+                        let article = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section[i].Article[j].Paragraph
+                        let ParaCnt = article.all?.count ?? 0
+                        for n in 0...(ParaCnt - 1) {
+                            let sentenceGet = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section[i].Article[j].Paragraph[n].ParagraphSentence.Sentence
+                            let SenCnt = sentenceGet.all?.count ?? 0
+                            for m in 0...(SenCnt - 1){
+                                let textGet = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section[i].Article[j].Paragraph[n].ParagraphSentence.Sentence[m]
+                                let text = textGet.element?.text ?? ""
+                                sentenceBit.append(text)
+                            }
+                        }
+                        sentenceArray.append(sentenceBit)
+                    }
+                }
+                return sentenceArray[indexPath]
             }
         }
         return sentence
     }
-
 }
