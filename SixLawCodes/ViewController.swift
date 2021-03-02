@@ -39,8 +39,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
             self.partTitles = []
-            let chapterNum = self.countChapter(data: data, indexPath: indexPath.row)
-            let titles = self.getChapterTitle(data: data, indexPath: indexPath.row, Chap: chapterNum)
+            let chapterNum = self.countChapter(data: data, row: indexPath.row)
+            let titles = self.getChapterTitle(data: data, row: indexPath.row, Chap: chapterNum)
             DispatchQueue.main.async { // メインスレッドで行うブロック
                 let storyboard = UIStoryboard(name: "Chapter", bundle: nil)
                 let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
@@ -63,13 +63,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view.
     }
  
-    func countChapter(data: Data?,indexPath : Int) -> Int{
+    func countChapter(data: Data?,row : Int) -> Int{
         let xml = XML.parse(data!)
-        if indexPath == 0 {
+        if row == 0 {
             let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter"]
             let chapterNum = text.all?.count ?? 0
             return chapterNum
-        }else if indexPath == 1 {
+        }else if row == 1 {
             let text1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter"]
             let text2 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 1, "Chapter"]
 
@@ -77,7 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let j = text2.all?.count ?? 0
             let chapterNum = i + j
             return chapterNum
-        }else if indexPath == 2 {
+        }else if row == 2 {
             let part = 5
             var total = 0
             for i in 0...(part - 1){
@@ -86,7 +86,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 total += chap
             }
             return total
-        }else if indexPath == 3 {
+        }else if row == 3 {
             let part = 3
             var total = 0
             for i in 0...(part - 1){
@@ -99,15 +99,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return 0
     }
     
-    func getChapterTitle(data: Data?,indexPath : Int, Chap : Int) -> [String]{
+    func getChapterTitle(data: Data?, row : Int, Chap : Int) -> [String]{
         let xml = XML.parse(data!)
-        var titleSeq: [String] = []
-        if indexPath == 0 {
+        var titles: [String] = []
+        if row == 0 {
             for i in 0...(Chap - 1){
                 let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", i, "ChapterTitle"]
-                titleSeq.append(text.element?.text ?? "")
+                titles.append(text.element?.text ?? "")
             }
-        }else if indexPath == 1 {
+        }else if row == 1 {
             self.partTitleFlag = true
             let text1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 0, "Chapter"]
             let text2 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", 1, "Chapter"]
@@ -118,17 +118,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             for i in 0...(a - 1) {
                 let part = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 0, "PartTitle"]
                 let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 0, "Chapter", i, "ChapterTitle"]
-                titleSeq.append(text.element?.text ?? "")
+                titles.append(text.element?.text ?? "")
                 self.partTitles.append(part.element?.text ?? "")
             }
             
             for i in 0...(b - 1) {
                 let part = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 1, "PartTitle"]
                 let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 1, "Chapter", i, "ChapterTitle"]
-                titleSeq.append(text.element?.text ?? "")
+                titles.append(text.element?.text ?? "")
                 self.partTitles.append(part.element?.text ?? "")
             }
-        }else if indexPath == 2 {
+        }else if row == 2 {
             self.partTitleFlag = true
             let part = 5
             for i in 0...(part - 1) {
@@ -137,11 +137,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 for j in 0...(a - 1){
                     let chapTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "Chapter", j, "ChapterTitle"]
                     let partTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "PartTitle"]
-                    titleSeq.append(chapTitle.element?.text ?? "")
+                    titles.append(chapTitle.element?.text ?? "")
                     self.partTitles.append(partTitle.element?.text ?? "")
                 }
             }
-        }else if indexPath == 3 {
+        }else if row == 3 {
             self.partTitleFlag = true
             let part = 3
             for i in 0...(part - 1) {
@@ -150,13 +150,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 for j in 0...(a - 1){
                     let chapTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "Chapter", j, "ChapterTitle"]
                     let partTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "PartTitle"]
-                    titleSeq.append(chapTitle.element?.text ?? "")
+                    titles.append(chapTitle.element?.text ?? "")
                     self.partTitles.append(partTitle.element?.text ?? "")
                 }
             }
 
         }
-        return titleSeq
+        return titles
     }
 }
 
