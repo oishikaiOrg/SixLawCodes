@@ -15,11 +15,12 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
     var chapterNum: Int = 0;
     var setLawNumber = ""
     var titleSeq: [String] = []
-    var chapterTitleSeq: [String] = []
+    var chapterTitles: [String] = []
     var partTitle = false
-    var partTitleSeq: [String] = []
-    var part = 0
-    var fixIndex = 0
+    var partTitles: [String] = []
+    
+    private var part = 0
+    private var fixIndex = 0
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chapterNum
@@ -27,9 +28,9 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChapterListTableViewCell.cellIdentifier, for: indexPath) as! ChapterListTableViewCell
-        cell.chapterTitle.text = chapterTitleSeq[indexPath.row]
+        cell.chapterTitle.text = chapterTitles[indexPath.row]
         if self.partTitle == true{
-            cell.partTitle.text = partTitleSeq[indexPath.row]
+            cell.partTitle.text = partTitles[indexPath.row]
         }
         return cell
     }
@@ -132,6 +133,46 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             let articleNum = text.all?.count ?? 0
             return articleNum
+        }else if self.setLawNumber == "明治三十二年法律第四十八号" {
+            self.part = 0
+            self.fixIndex = 0
+            switch indexPath {
+            case (0...6):
+                self.part = 0
+            case (7...15):
+                self.part = 1
+                self.fixIndex = 7
+                print("")
+            case (16...100):
+                self.part = 2
+                self.fixIndex = 16
+            default:
+                self.fixIndex = 0
+            }
+            let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Article"]
+            if text.all?.count == nil {
+                let section = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section"]
+                let sectionCnt = section.all?.count ?? 0
+                var artCnt = 0
+                for i in 0...(sectionCnt - 1) {
+                    let consSub = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section", i, "Article"]
+                    let articleCnt = consSub.all?.count ?? 0
+                    if articleCnt == 0 {
+                        let sub = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section", i, "Subsection"]
+                        let subCnt = sub.all?.count ?? 0
+                        for j in 0...(subCnt - 1) {
+                            let art = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section", i, "Subsection", j, "Article"]
+                            let artNum = art.all?.count ?? 0
+                            artCnt += artNum
+                        }
+                    }else{
+                        artCnt += articleCnt
+                    }
+                }
+                return artCnt
+            }
+            let articleNum = text.all?.count ?? 0
+            return articleNum
         }
         return 0
     }
@@ -159,6 +200,40 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
             }
         }else if self.setLawNumber == "明治二十九年法律第八十九号" {
+            let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Article"]
+            if text.all?.count == nil{
+                let textEX = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section"]
+                let sectionNum = textEX.all?.count ?? 0
+                for i in 0...(sectionNum - 1) {
+                    let a = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section", i, "Article"]
+                    let num = a.all?.count ?? 0
+                    
+                    if num == 0{
+                        let c = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section", i, "Subsection"]
+                        let subsectionCount = c.all?.count ?? 0
+                        for n in 0...(subsectionCount - 1) {
+                            let d = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section", i, "Subsection", n, "Article"]
+                            let articleCnt = d.all?.count ?? 0
+                            for m in 0...(articleCnt - 1){
+                                let e = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section", i, "Subsection", n, "Article", m, "ArticleTitle"]
+                                Seq.append(e.element?.text ?? "")
+                            }
+                        }
+                        
+                    }else{
+                        for j in 0...(num - 1) {
+                            let b = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section", i, "Article", j, "ArticleTitle"]
+                            Seq.append(b.element?.text ?? "")
+                        }
+                    }
+                }
+            }else {
+                for i in 0...(articleNum - 1) {
+                    let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Article",i, "ArticleTitle"]
+                    Seq.append(text.element?.text ?? "")
+                }
+            }
+        }else if self.setLawNumber == "明治三十二年法律第四十八号" {
             let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Article"]
             if text.all?.count == nil{
                 let textEX = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (indexPath - self.fixIndex), "Section"]

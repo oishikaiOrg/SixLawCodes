@@ -9,15 +9,17 @@ import UIKit
 import SwiftyXMLParser
 
 class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     var chapterNum = 0
     var articleNum = 0
     var setLawNumber = ""
     var articleCount: [String] = []
     var sentence: [String] = []
-    var seq = 0
-    var itemCount = 0;
-    var ParagraphSentenceCount = 0;
     var part = 0
+    
+    private var seq = 0
+    private var itemCount = 0;
+    private var ParagraphSentenceCount = 0;
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articleNum

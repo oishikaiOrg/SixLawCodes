@@ -7,20 +7,7 @@
 
 import UIKit
 import SwiftyXMLParser
-/*
-public struct Chapter: XMLIndexerDeserializable {
-    var ChapterTitle : String = ""
-    
-    init(ChapterTitle: String){
-        self.ChapterTitle = ChapterTitle
-    }
-    public static func deserialize(_ node: XMLIndexer) throws -> Chapter{
-        return try Chapter (
-            ChapterTitle: node["ChapterTitle"].value()
-            )
-    }
-}
-*/
+
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -28,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let lawNumber = ["昭和二十一年憲法","明治四十年法律第四十五号", "明治二十九年法律第八十九号", "明治三十二年法律第四十八号", "昭和二十三年法律第百三十一号", "昭和二十三年法律第百三十一号"]
     
     var partTitleFlag = false
-    var partTitleSeq:[String] = []
+    var partTitles:[String] = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sixCodes.count
@@ -51,23 +38,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let url = URL(string: "https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
 
         let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-            self.partTitleSeq = []
+            self.partTitles = []
             let chapterNum = self.countChapter(data: data, indexPath: indexPath.row)
-            let titleSeq = self.getChapterTitle(data: data, indexPath: indexPath.row, Chap: chapterNum)
+            let titles = self.getChapterTitle(data: data, indexPath: indexPath.row, Chap: chapterNum)
             DispatchQueue.main.async { // メインスレッドで行うブロック
                 let storyboard = UIStoryboard(name: "Chapter", bundle: nil)
                 let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
                 self.navigationController?.pushViewController(nextVC, animated: true)
                 nextVC.chapterNum = chapterNum
-                nextVC.chapterTitleSeq = titleSeq
+                nextVC.chapterTitles = titles
                 nextVC.setLawNumber = self.lawNumber[indexPath.row]
                 nextVC.partTitle = self.partTitleFlag
-                nextVC.partTitleSeq = self.partTitleSeq
+                nextVC.partTitles = self.partTitles
             }
             //let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
 //            nextVC.chapterNum = chapterNum
         }
         task.resume()
+        ChapterRepository.fetchChapter(row: indexPath.row)
     }
 
     override func viewDidLoad() {
@@ -91,6 +79,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return chapterNum
         }else if indexPath == 2 {
             let part = 5
+            var total = 0
+            for i in 0...(part - 1){
+                let text1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "Chapter"]
+                let chap = text1.all?.count ?? 0
+                total += chap
+            }
+            return total
+        }else if indexPath == 3 {
+            let part = 3
             var total = 0
             for i in 0...(part - 1){
                 let text1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "Chapter"]
@@ -122,14 +119,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let part = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 0, "PartTitle"]
                 let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 0, "Chapter", i, "ChapterTitle"]
                 titleSeq.append(text.element?.text ?? "")
-                self.partTitleSeq.append(part.element?.text ?? "")
+                self.partTitles.append(part.element?.text ?? "")
             }
             
             for i in 0...(b - 1) {
                 let part = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 1, "PartTitle"]
                 let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision","Part", 1, "Chapter", i, "ChapterTitle"]
                 titleSeq.append(text.element?.text ?? "")
-                self.partTitleSeq.append(part.element?.text ?? "")
+                self.partTitles.append(part.element?.text ?? "")
             }
         }else if indexPath == 2 {
             self.partTitleFlag = true
@@ -141,9 +138,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let chapTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "Chapter", j, "ChapterTitle"]
                     let partTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "PartTitle"]
                     titleSeq.append(chapTitle.element?.text ?? "")
-                    self.partTitleSeq.append(partTitle.element?.text ?? "")
+                    self.partTitles.append(partTitle.element?.text ?? "")
                 }
             }
+        }else if indexPath == 3 {
+            self.partTitleFlag = true
+            let part = 3
+            for i in 0...(part - 1) {
+                let text1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "Chapter"]
+                let a = text1.all?.count ?? 0
+                for j in 0...(a - 1){
+                    let chapTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "Chapter", j, "ChapterTitle"]
+                    let partTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "PartTitle"]
+                    titleSeq.append(chapTitle.element?.text ?? "")
+                    self.partTitles.append(partTitle.element?.text ?? "")
+                }
+            }
+
         }
         return titleSeq
     }
