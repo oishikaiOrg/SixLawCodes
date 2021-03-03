@@ -28,34 +28,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {  // cellがタップされたときに呼ばれる処理
-//        let setLawNumber = lawNumber[indexPath.row]
-//        let config = URLSessionConfiguration.default
-//        let session = URLSession(configuration: config)
-//
-//        print("https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)")
-//        // urlにlawNumberを埋め込んで,そのままだと扱えないので .addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)! でエンコード
-//
-//        let url = URL(string: "https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
-//
-//        let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-//            self.partTitles = []
-//            let chapterNum = self.countChapter(data: data, row: indexPath.row)
-//            let titles = self.getChapterTitle(data: data, row: indexPath.row, Chap: chapterNum)
-//            DispatchQueue.main.async { // メインスレッドで行うブロック
-//                let storyboard = UIStoryboard(name: "Chapter", bundle: nil)
-//                let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
-//                self.navigationController?.pushViewController(nextVC, animated: true)
-//                nextVC.chapterNum = chapterNum
-//                nextVC.chapterTitles = titles
-//                nextVC.setLawNumber = self.lawNumber[indexPath.row]
-//                nextVC.partTitle = self.partTitleFlag
-//                nextVC.partTitles = self.partTitles
-//            }
-//            //let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
-////            nextVC.chapterNum = chapterNum
-//        }
-//        task.resume()
-
         ChapterRepository.fetchChapter(row: indexPath.row) { (data: Data?, response: URLResponse?, error: Error?) in
             self.partTitles = []
             let chapterNum = self.countChapter(data: data, row: indexPath.row)
@@ -70,25 +42,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 nextVC.partTitle = self.partTitleFlag
                 nextVC.partTitles = self.partTitles
             }
-            //let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
-//            nextVC.chapterNum = chapterNum
         }
-        
-//        ChapterRepository.fetchChapter(row: indexPath.row, completionHandler: (Data?, URLResponse?, Error?) {
-//            self.partTitles = []
-//            let chapterNum = self.countChapter(data: data, row: indexPath.row)
-//            let titles = self.getChapterTitle(data: data, row: indexPath.row, Chap: chapterNum)
-//            DispatchQueue.main.async { // メインスレッドで行うブロック
-//                let storyboard = UIStoryboard(name: "Chapter", bundle: nil)
-//                let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
-//                self.navigationController?.pushViewController(nextVC, animated: true)
-//                nextVC.chapterNum = chapterNum
-//                nextVC.chapterTitles = titles
-//                nextVC.setLawNumber = self.lawNumber[indexPath.row]
-//                nextVC.partTitle = self.partTitleFlag
-//                nextVC.partTitles = self.partTitles
-//            }
-//        })
     }
 
     override func viewDidLoad() {
