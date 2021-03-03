@@ -1,0 +1,28 @@
+PODS:
+  - SwiftyXMLParser (5.1.0)
+  - SWXMLHash (5.0.1)
+
+DEPENDENCIES:
+  - SwiftyXMLParser (from `https://github.com/yahoojapan/SwiftyXMLParser.git`)
+  - SWXMLHash
+
+SPEC REPOS:
+  trunk:
+    - SWXMLHash
+
+EXTERNAL SOURCES:
+  SwiftyXMLParser:
+    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+
+CHECKOUT OPTIONS:
+  SwiftyXMLParser:
+    :commit: ec7f183642adf429babd867d1a38c5c6912408ba
+    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+
+SPEC CHECKSUMS:
+  SwiftyXMLParser: 23b5a9321a8adf72aae29046ea58c3d097b4ac17
+  SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
+
+PODFILE CHECKSUM: 6b629978dc088245bdf2955b6ac5d7bb6c28cd60
+
+COCOAPODS: 1.10.1
