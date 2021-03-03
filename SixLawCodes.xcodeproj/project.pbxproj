@@ -18,7 +18,7 @@
 		2A3D46F825EDF25D0045BD40 /* ChapterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */; };
 		2A5AC72B25BF002000424B19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72A25BF002000424B19 /* AppDelegate.swift */; };
 		2A5AC72D25BF002000424B19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72C25BF002000424B19 /* SceneDelegate.swift */; };
-		2A5AC72F25BF002000424B19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72E25BF002000424B19 /* ViewController.swift */; };
+		2A5AC72F25BF002000424B19 /* LawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72E25BF002000424B19 /* LawViewController.swift */; };
 		2A5AC73225BF002000424B19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A5AC73025BF002000424B19 /* Main.storyboard */; };
 		2A5AC73425BF002600424B19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A5AC73325BF002600424B19 /* Assets.xcassets */; };
 		2A5AC73725BF002600424B19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A5AC73525BF002600424B19 /* LaunchScreen.storyboard */; };
@@ -41,7 +41,7 @@
 		2A5AC72725BF002000424B19 /* SixLawCodes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixLawCodes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5AC72A25BF002000424B19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A5AC72C25BF002000424B19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2A5AC72E25BF002000424B19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2A5AC72E25BF002000424B19 /* LawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LawViewController.swift; sourceTree = "<group>"; };
 		2A5AC73125BF002000424B19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A5AC73325BF002600424B19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A5AC73625BF002600424B19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 			children = (
 				2A5AC72A25BF002000424B19 /* AppDelegate.swift */,
 				2A5AC72C25BF002000424B19 /* SceneDelegate.swift */,
-				2A5AC72E25BF002000424B19 /* ViewController.swift */,
+				2A5AC72E25BF002000424B19 /* LawViewController.swift */,
 				2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */,
 				2A5AC74025C818FB00424B19 /* ChapterViewController.swift */,
 				2A01E41925D8C2AB00334738 /* ArticleViewController.swift */,
@@ -243,7 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A5AC72F25BF002000424B19 /* ViewController.swift in Sources */,
+				2A5AC72F25BF002000424B19 /* LawViewController.swift in Sources */,
 				2A01E43825E2A4B600334738 /* ChapterListTableViewCell.swift in Sources */,
 				2A01E42225D91A3400334738 /* ParagraphViewController.swift in Sources */,
 				2A01E41A25D8C2AB00334738 /* ArticleViewController.swift in Sources */,

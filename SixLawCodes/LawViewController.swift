@@ -9,7 +9,7 @@ import UIKit
 import SwiftyXMLParser
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let sixCodes = ["憲法", "刑法", "民法", "商法", "刑事訴訟法", "民事訴訟法"]
     let lawNumber = ["昭和二十一年憲法","明治四十年法律第四十五号", "明治二十九年法律第八十九号", "明治三十二年法律第四十八号", "昭和二十三年法律第百三十一号", "昭和二十三年法律第百三十一号"]
