@@ -90,6 +90,7 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         let xml = XML.parse(data!)
         var titles: [String] = []
         if row == 0 {
+            self.partTitleFlag = false
             for i in 0...(Chap - 1){
                 let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", i, "ChapterTitle"]
                 titles.append(text.element?.text ?? "")
