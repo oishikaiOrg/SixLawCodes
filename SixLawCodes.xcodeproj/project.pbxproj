@@ -16,6 +16,7 @@
 		2A01E43525E2A2E500334738 /* ChapterListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A01E43425E2A2E400334738 /* ChapterListTableViewCell.xib */; };
 		2A01E43825E2A4B600334738 /* ChapterListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */; };
 		2A11F95A25F11AFD001BD421 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11F95925F11AFD001BD421 /* ArticleRepository.swift */; };
+		2A11F96425F1205F001BD421 /* ParagraphRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11F96325F1205F001BD421 /* ParagraphRepository.swift */; };
 		2A3D46F825EDF25D0045BD40 /* ChapterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */; };
 		2A5AC72B25BF002000424B19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72A25BF002000424B19 /* AppDelegate.swift */; };
 		2A5AC72D25BF002000424B19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72C25BF002000424B19 /* SceneDelegate.swift */; };
@@ -39,6 +40,7 @@
 		2A01E43425E2A2E400334738 /* ChapterListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChapterListTableViewCell.xib; sourceTree = "<group>"; };
 		2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterListTableViewCell.swift; sourceTree = "<group>"; };
 		2A11F95925F11AFD001BD421 /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
+		2A11F96325F1205F001BD421 /* ParagraphRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphRepository.swift; sourceTree = "<group>"; };
 		2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterRepository.swift; sourceTree = "<group>"; };
 		2A5AC72725BF002000424B19 /* SixLawCodes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixLawCodes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5AC72A25BF002000424B19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				2A5AC74025C818FB00424B19 /* ChapterViewController.swift */,
 				2A11F95925F11AFD001BD421 /* ArticleRepository.swift */,
 				2A01E41925D8C2AB00334738 /* ArticleViewController.swift */,
+				2A11F96325F1205F001BD421 /* ParagraphRepository.swift */,
 				2A01E42125D91A3400334738 /* ParagraphViewController.swift */,
 				2A01E42E25DBF76C00334738 /* SentenceListTableViewCell.swift */,
 				2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */,
@@ -248,6 +251,7 @@
 			files = (
 				2A5AC72F25BF002000424B19 /* LawViewController.swift in Sources */,
 				2A01E43825E2A4B600334738 /* ChapterListTableViewCell.swift in Sources */,
+				2A11F96425F1205F001BD421 /* ParagraphRepository.swift in Sources */,
 				2A01E42225D91A3400334738 /* ParagraphViewController.swift in Sources */,
 				2A01E41A25D8C2AB00334738 /* ArticleViewController.swift in Sources */,
 				2A11F95A25F11AFD001BD421 /* ArticleRepository.swift in Sources */,

@@ -32,11 +32,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let url = URL(string: "https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
-        let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-            
+        ParagraphRepository.fetchParagraph(row: indexPath.row, setLawNumber: self.setLawNumber) { (data: Data?, response: URLResponse?, error: Error?) in
             let xml = XML.parse(data!)
             let sequence = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", self.chapterNum,"Article" ,indexPath.row, "Paragraph"]
             self.seq = self.getNumberOfSentence(data: data, row: indexPath.row)
@@ -51,7 +47,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 nextVC.paragraphNum = self.seq
             }
         }
-        task.resume()
+
     }
 
     
