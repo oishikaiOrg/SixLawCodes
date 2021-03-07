@@ -9,7 +9,7 @@ import UIKit
 import SwiftyXMLParser
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let sixCodes = ["憲法", "刑法", "民法", "商法", "刑事訴訟法", "民事訴訟法"]
     let lawNumber = ["昭和二十一年憲法","明治四十年法律第四十五号", "明治二十九年法律第八十九号", "明治三十二年法律第四十八号", "昭和二十三年法律第百三十一号", "昭和二十三年法律第百三十一号"]
@@ -28,16 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {  // cellがタップされたときに呼ばれる処理
-        let setLawNumber = lawNumber[indexPath.row]
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        
-        print("https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)")
-        // urlにlawNumberを埋め込んで,そのままだと扱えないので .addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)! でエンコード
-        
-        let url = URL(string: "https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
-
-        let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+        ChapterRepository.fetchChapter(row: indexPath.row) { (data: Data?, response: URLResponse?, error: Error?) in
             self.partTitles = []
             let chapterNum = self.countChapter(data: data, row: indexPath.row)
             let titles = self.getChapterTitle(data: data, row: indexPath.row, Chap: chapterNum)
@@ -51,11 +42,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 nextVC.partTitle = self.partTitleFlag
                 nextVC.partTitles = self.partTitles
             }
-            //let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
-//            nextVC.chapterNum = chapterNum
         }
-        task.resume()
-        ChapterRepository.fetchChapter(row: indexPath.row)
     }
 
     override func viewDidLoad() {
@@ -103,6 +90,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let xml = XML.parse(data!)
         var titles: [String] = []
         if row == 0 {
+            self.partTitleFlag = false
             for i in 0...(Chap - 1){
                 let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", i, "ChapterTitle"]
                 titles.append(text.element?.text ?? "")

@@ -36,24 +36,13 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let url = URL(string: "https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
-        
-        let task = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-            
+        ArticleRepository.fetchArticle(row: indexPath.row, setLawNumber: self.setLawNumber) { (data: Data?, response: URLResponse?, error: Error?) in
             let xml = XML.parse(data!)
-//            let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", indexPath.row,"Article"]
-//            let chapterTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", indexPath.row, "ChapterTitle"]
             let articleNum = self.countArticle(data: data, row: indexPath.row)
             let chapterTitle = self.getChapterTitle(data: data, row: indexPath.row)
             
             self.titleSeq = []
             self.titleSeq = self.getTitleSeq(data: data, articleNum: articleNum, row: indexPath.row)
-//            for i in 0...(articleNum - 1){
-//                let text1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", indexPath.row ,"Article" ,i, "ArticleTitle"]
-//                self.titleSeq.append(text1.element?.text ?? "")
-//            }
             DispatchQueue.main.async { // メインスレッドで行うブロック
                 let storyboard = UIStoryboard(name: "Article", bundle: nil)
                 let nextVC = storyboard.instantiateViewController(identifier: "article")as! ArticleViewController
@@ -67,10 +56,7 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
         }
-        
-        task.resume()
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -294,4 +280,5 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         return nil
     }
+
 }
