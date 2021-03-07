@@ -85,6 +85,43 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2A11F96625F506AB001BD421 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				2A11F95925F11AFD001BD421 /* ArticleRepository.swift */,
+				2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */,
+				2A11F96325F1205F001BD421 /* ParagraphRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		2A11F96725F50706001BD421 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */,
+				2A01E42E25DBF76C00334738 /* SentenceListTableViewCell.swift */,
+				2A01E43425E2A2E400334738 /* ChapterListTableViewCell.xib */,
+				2A01E42F25DBF76C00334738 /* SentenceListTableViewCell.xib */,
+				2A01E41225D8C28200334738 /* Article.storyboard */,
+				2A5AC74925D1875700424B19 /* Chapter.storyboard */,
+				2A5AC73525BF002600424B19 /* LaunchScreen.storyboard */,
+				2A5AC73025BF002000424B19 /* Law.storyboard */,
+				2A01E41D25D919E300334738 /* Paragraph.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2A11F96825F5077E001BD421 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2A01E41925D8C2AB00334738 /* ArticleViewController.swift */,
+				2A5AC74025C818FB00424B19 /* ChapterViewController.swift */,
+				2A5AC72E25BF002000424B19 /* LawViewController.swift */,
+				2A01E42125D91A3400334738 /* ParagraphViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		2A5AC71E25BF002000424B19 = {
 			isa = PBXGroup;
 			children = (
@@ -106,26 +143,13 @@
 		2A5AC72925BF002000424B19 /* SixLawCodes */ = {
 			isa = PBXGroup;
 			children = (
+				2A11F96625F506AB001BD421 /* Repositories */,
+				2A11F96825F5077E001BD421 /* ViewControllers */,
+				2A11F96725F50706001BD421 /* Views */,
 				2A5AC72A25BF002000424B19 /* AppDelegate.swift */,
-				2A5AC72C25BF002000424B19 /* SceneDelegate.swift */,
-				2A5AC72E25BF002000424B19 /* LawViewController.swift */,
-				2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */,
-				2A5AC74025C818FB00424B19 /* ChapterViewController.swift */,
-				2A11F95925F11AFD001BD421 /* ArticleRepository.swift */,
-				2A01E41925D8C2AB00334738 /* ArticleViewController.swift */,
-				2A11F96325F1205F001BD421 /* ParagraphRepository.swift */,
-				2A01E42125D91A3400334738 /* ParagraphViewController.swift */,
-				2A01E42E25DBF76C00334738 /* SentenceListTableViewCell.swift */,
-				2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */,
-				2A5AC73025BF002000424B19 /* Law.storyboard */,
-				2A5AC74925D1875700424B19 /* Chapter.storyboard */,
-				2A01E41225D8C28200334738 /* Article.storyboard */,
-				2A01E41D25D919E300334738 /* Paragraph.storyboard */,
-				2A01E42F25DBF76C00334738 /* SentenceListTableViewCell.xib */,
-				2A01E43425E2A2E400334738 /* ChapterListTableViewCell.xib */,
 				2A5AC73325BF002600424B19 /* Assets.xcassets */,
-				2A5AC73525BF002600424B19 /* LaunchScreen.storyboard */,
 				2A5AC73825BF002600424B19 /* Info.plist */,
+				2A5AC72C25BF002000424B19 /* SceneDelegate.swift */,
 			);
 			path = SixLawCodes;
 			sourceTree = "<group>";
