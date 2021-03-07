@@ -1,7 +1,7 @@
 # SixLawCodes
 
-六法全書の内容を手軽に確認できるアプリです。
-e-GOV法令の法令APIをを使用しています。(https://elaws.e-gov.go.jp/apitop/)
+六法全書の内容を手軽に確認できるアプリです。<BR>
+e-GOV法令の法令APIをを使用しています。(https://elaws.e-gov.go.jp/apitop/)<BR>
 現在以下の法律に対応しています。
 
 - 日本国憲法 (昭和二十一年憲法)
@@ -10,7 +10,8 @@ e-GOV法令の法令APIをを使用しています。(https://elaws.e-gov.go.jp/
 
 ## Installation
 
-$ git clone https://github.com/oishikai/SixLawCodes
+$ git clone https://github.com/oishikai/SixLawCodes<BR>
+$ pod install
 
 ## Usage
 
