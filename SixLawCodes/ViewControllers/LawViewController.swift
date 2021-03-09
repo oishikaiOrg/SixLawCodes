@@ -7,7 +7,7 @@
 
 import UIKit
 import SwiftyXMLParser
-
+import Reachability
 
 class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -28,6 +28,18 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {  // cellがタップされたときに呼ばれる処理
+        let reachability = try! Reachability()
+        if reachability.connection == .unavailable {
+            let alert: UIAlertController = UIAlertController(title: "インターネットに接続してください", message: "現在オフラインです。接続を確認してください", preferredStyle: UIAlertController.Style.alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
+                    (action: UIAlertAction!) -> Void in
+//                    print("OK")
+                })
+            alert.addAction(defaultAction)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+
         ChapterRepository.fetchChapter(row: indexPath.row) { (data: Data?, response: URLResponse?, error: Error?) in
             self.partTitles = []
             let chapterNum = self.countChapter(data: data, row: indexPath.row)

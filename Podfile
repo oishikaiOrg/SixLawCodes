@@ -8,5 +8,6 @@ target 'SixLawCodes' do
   # Pods for SixLawCodes
 	pod 'SWXMLHash'
 	pod "SwiftyXMLParser", :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
+	pod 'ReachabilitySwift'
 
 end

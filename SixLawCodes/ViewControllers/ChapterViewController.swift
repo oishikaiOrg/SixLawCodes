@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyXMLParser
+import Reachability
 
 class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
@@ -36,6 +37,18 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let reachability = try! Reachability()
+        if reachability.connection == .unavailable {
+            let alert: UIAlertController = UIAlertController(title: "インターネットに接続してください", message: "現在オフラインです。接続を確認してください", preferredStyle: UIAlertController.Style.alert)
+            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
+                    (action: UIAlertAction!) -> Void in
+//                    print("OK")
+                })
+            alert.addAction(defaultAction)
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
         ArticleRepository.fetchArticle(row: indexPath.row, setLawNumber: self.setLawNumber) { (data: Data?, response: URLResponse?, error: Error?) in
             let xml = XML.parse(data!)
             let articleNum = self.countArticle(data: data, row: indexPath.row)
