@@ -1,13 +1,16 @@
 PODS:
+  - ReachabilitySwift (5.0.0)
   - SwiftyXMLParser (5.1.0)
   - SWXMLHash (5.0.1)
 
 DEPENDENCIES:
+  - ReachabilitySwift
   - SwiftyXMLParser (from `https://github.com/yahoojapan/SwiftyXMLParser.git`)
   - SWXMLHash
 
 SPEC REPOS:
   trunk:
+    - ReachabilitySwift
     - SWXMLHash
 
 EXTERNAL SOURCES:
@@ -20,9 +23,10 @@ CHECKOUT OPTIONS:
     :git: https://github.com/yahoojapan/SwiftyXMLParser.git
 
 SPEC CHECKSUMS:
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   SwiftyXMLParser: 23b5a9321a8adf72aae29046ea58c3d097b4ac17
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
 
-PODFILE CHECKSUM: 6b629978dc088245bdf2955b6ac5d7bb6c28cd60
+PODFILE CHECKSUM: 3db02ff763e94fe699ea25bc806cfa43969bec30
 
 COCOAPODS: 1.10.1
