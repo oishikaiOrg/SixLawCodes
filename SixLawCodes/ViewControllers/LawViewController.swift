@@ -8,6 +8,8 @@
 import UIKit
 import SwiftyXMLParser
 import Reachability
+import SVProgressHUD
+
 
 class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -39,12 +41,14 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             present(alert, animated: true, completion: nil)
             return
         }
+        SVProgressHUD.show()
 
         ChapterRepository.fetchChapter(row: indexPath.row) { (data: Data?, response: URLResponse?, error: Error?) in
             self.partTitles = []
             let chapterNum = self.countChapter(data: data, row: indexPath.row)
             let titles = self.getChapterTitle(data: data, row: indexPath.row, Chap: chapterNum)
             DispatchQueue.main.async { // メインスレッドで行うブロック
+                SVProgressHUD.dismiss()
                 let storyboard = UIStoryboard(name: "Chapter", bundle: nil)
                 let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
                 self.navigationController?.pushViewController(nextVC, animated: true)
