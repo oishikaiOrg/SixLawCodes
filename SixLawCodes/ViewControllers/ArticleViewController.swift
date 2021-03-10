@@ -8,6 +8,8 @@
 import UIKit
 import SwiftyXMLParser
 import Reachability
+import SVProgressHUD
+
 
 class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -44,6 +46,9 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             present(alert, animated: true, completion: nil)
             return
         }
+        
+        SVProgressHUD.show()
+
         ParagraphRepository.fetchParagraph(row: indexPath.row, setLawNumber: self.setLawNumber) { (data: Data?, response: URLResponse?, error: Error?) in
             let xml = XML.parse(data!)
             let sequence = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", self.chapterNum,"Article" ,indexPath.row, "Paragraph"]
@@ -51,6 +56,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.sentence = self.getSentence(data: data, row: indexPath.row)
             
             DispatchQueue.main.async { // メインスレッドで行うブロック
+                SVProgressHUD.dismiss()
                 let storyboard = UIStoryboard(name: "Paragraph", bundle: nil)
                 let nextVC = storyboard.instantiateViewController(identifier: "paragraph")as! ParagraphViewController
                 self.navigationController?.pushViewController(nextVC, animated: true)

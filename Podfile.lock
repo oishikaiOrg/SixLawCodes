@@ -1,10 +1,12 @@
 PODS:
   - ReachabilitySwift (5.0.0)
+  - SVProgressHUD (2.2.5)
   - SwiftyXMLParser (5.1.0)
   - SWXMLHash (5.0.1)
 
 DEPENDENCIES:
   - ReachabilitySwift
+  - SVProgressHUD (from `https://github.com/mmdock/SVProgressHUD.git`, branch `patch-1`)
   - SwiftyXMLParser (from `https://github.com/yahoojapan/SwiftyXMLParser.git`)
   - SWXMLHash
 
@@ -14,19 +16,26 @@ SPEC REPOS:
     - SWXMLHash
 
 EXTERNAL SOURCES:
+  SVProgressHUD:
+    :branch: patch-1
+    :git: https://github.com/mmdock/SVProgressHUD.git
   SwiftyXMLParser:
     :git: https://github.com/yahoojapan/SwiftyXMLParser.git
 
 CHECKOUT OPTIONS:
+  SVProgressHUD:
+    :commit: 41afba447103c44c55482db1174569172607c1e6
+    :git: https://github.com/mmdock/SVProgressHUD.git
   SwiftyXMLParser:
     :commit: ec7f183642adf429babd867d1a38c5c6912408ba
     :git: https://github.com/yahoojapan/SwiftyXMLParser.git
 
 SPEC CHECKSUMS:
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyXMLParser: 23b5a9321a8adf72aae29046ea58c3d097b4ac17
   SWXMLHash: 9cc0c2e4807926c74377724aa8722ee5707a0485
 
-PODFILE CHECKSUM: 3db02ff763e94fe699ea25bc806cfa43969bec30
+PODFILE CHECKSUM: d1b7133574c146f4c1b644ace258c22dab5fd1ba
 
 COCOAPODS: 1.10.1

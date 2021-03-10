@@ -8,6 +8,7 @@
 import UIKit
 import SwiftyXMLParser
 import Reachability
+import SVProgressHUD
 
 class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
@@ -48,6 +49,7 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
             present(alert, animated: true, completion: nil)
             return
         }
+        SVProgressHUD.show()
         
         ArticleRepository.fetchArticle(row: indexPath.row, setLawNumber: self.setLawNumber) { (data: Data?, response: URLResponse?, error: Error?) in
             let xml = XML.parse(data!)
@@ -57,6 +59,7 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.titleSeq = []
             self.titleSeq = self.getTitleSeq(data: data, articleNum: articleNum, row: indexPath.row)
             DispatchQueue.main.async { // メインスレッドで行うブロック
+                SVProgressHUD.dismiss()
                 let storyboard = UIStoryboard(name: "Article", bundle: nil)
                 let nextVC = storyboard.instantiateViewController(identifier: "article")as! ArticleViewController
                 self.navigationController?.pushViewController(nextVC, animated: true)
