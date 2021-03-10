@@ -9,5 +9,6 @@ target 'SixLawCodes' do
 	pod 'SWXMLHash'
 	pod "SwiftyXMLParser", :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
 	pod 'ReachabilitySwift'
+	pod 'SVProgressHUD', :git => 'https://github.com/mmdock/SVProgressHUD.git', :branch => 'patch-1'
 
 end
