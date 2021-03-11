@@ -51,8 +51,36 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         SVProgressHUD.show()
 
         ChapterRepository.fetchChapter(row: indexPath.row) { (data: Data?, response: URLResponse?, error: Error?) in
+            let xml = XML.parse(data!)
+            if xml.error != nil {
+                DispatchQueue.main.async { // メインスレッドで行うブロック
+                    SVProgressHUD.dismiss()
+                    let alert: UIAlertController = UIAlertController(title: "データの取得に失敗しました。", message: "時間を置いて再度試して下さい。", preferredStyle: UIAlertController.Style.alert)
+                    let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
+                        (action: UIAlertAction!) -> Void in
+                    })
+                    alert.addAction(defaultAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                return
+            }
+            
             self.partTitles = []
             let chapterNum = self.countChapter(data: data, row: indexPath.row)
+            
+//            if chapterNum == 0 {
+//                DispatchQueue.main.async { // メインスレッドで行うブロック
+//                    SVProgressHUD.dismiss()
+//                    let alert: UIAlertController = UIAlertController(title: "データの取得に失敗しました。", message: "時間を置いて再度試して下さい。", preferredStyle: UIAlertController.Style.alert)
+//                    let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
+//                        (action: UIAlertAction!) -> Void in
+//                    })
+//                    alert.addAction(defaultAction)
+//                    self.present(alert, animated: true, completion: nil)
+//                }
+//                return
+//            }
+            
             let titles = self.getChapterTitle(data: data, row: indexPath.row, Chap: chapterNum)
             let lawTitle = self.sixCodes[indexPath.row]
             DispatchQueue.main.async { // メインスレッドで行うブロック

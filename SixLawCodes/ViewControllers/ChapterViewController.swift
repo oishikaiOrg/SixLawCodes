@@ -55,6 +55,20 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         ArticleRepository.fetchArticle(row: indexPath.row, setLawNumber: self.setLawNumber) { (data: Data?, response: URLResponse?, error: Error?) in
             let xml = XML.parse(data!)
+            
+            if xml.error != nil {
+                DispatchQueue.main.async { // メインスレッドで行うブロック
+                    SVProgressHUD.dismiss()
+                    let alert: UIAlertController = UIAlertController(title: "データの取得に失敗しました。", message: "時間を置いて再度試して下さい。", preferredStyle: UIAlertController.Style.alert)
+                    let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
+                        (action: UIAlertAction!) -> Void in
+                    })
+                    alert.addAction(defaultAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                return
+            }
+            
             let articleNum = self.countArticle(data: data, row: indexPath.row)
             let chapterTitle = self.getChapterTitle(data: data, row: indexPath.row)
             
