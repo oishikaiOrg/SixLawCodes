@@ -19,6 +19,11 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     var partTitleFlag = false
     var partTitles:[String] = []
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "六法全書 Viwer"
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sixCodes.count
     }
@@ -47,6 +52,7 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             self.partTitles = []
             let chapterNum = self.countChapter(data: data, row: indexPath.row)
             let titles = self.getChapterTitle(data: data, row: indexPath.row, Chap: chapterNum)
+            let lawTitle = self.sixCodes[indexPath.row]
             DispatchQueue.main.async { // メインスレッドで行うブロック
                 SVProgressHUD.dismiss()
                 let storyboard = UIStoryboard(name: "Chapter", bundle: nil)
@@ -57,13 +63,9 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 nextVC.setLawNumber = self.lawNumber[indexPath.row]
                 nextVC.partTitle = self.partTitleFlag
                 nextVC.partTitles = self.partTitles
+                nextVC.title = lawTitle
             }
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
  
     func countChapter(data: Data?,row : Int) -> Int{
