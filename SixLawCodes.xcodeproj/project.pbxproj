@@ -17,6 +17,7 @@
 		2A01E43825E2A4B600334738 /* ChapterListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */; };
 		2A11F95A25F11AFD001BD421 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11F95925F11AFD001BD421 /* ArticleRepository.swift */; };
 		2A11F96425F1205F001BD421 /* ParagraphRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11F96325F1205F001BD421 /* ParagraphRepository.swift */; };
+		2A11F98425FBA7C5001BD421 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11F98325FBA7C5001BD421 /* ErrorAlert.swift */; };
 		2A3D46F825EDF25D0045BD40 /* ChapterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */; };
 		2A5AC72B25BF002000424B19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72A25BF002000424B19 /* AppDelegate.swift */; };
 		2A5AC72D25BF002000424B19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72C25BF002000424B19 /* SceneDelegate.swift */; };
@@ -41,6 +42,7 @@
 		2A01E43725E2A4B600334738 /* ChapterListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterListTableViewCell.swift; sourceTree = "<group>"; };
 		2A11F95925F11AFD001BD421 /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
 		2A11F96325F1205F001BD421 /* ParagraphRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphRepository.swift; sourceTree = "<group>"; };
+		2A11F98325FBA7C5001BD421 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 		2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterRepository.swift; sourceTree = "<group>"; };
 		2A5AC72725BF002000424B19 /* SixLawCodes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixLawCodes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5AC72A25BF002000424B19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				2A5AC73325BF002600424B19 /* Assets.xcassets */,
 				2A5AC73825BF002600424B19 /* Info.plist */,
 				2A5AC72C25BF002000424B19 /* SceneDelegate.swift */,
+				2A11F98325FBA7C5001BD421 /* ErrorAlert.swift */,
 			);
 			path = SixLawCodes;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A5AC72F25BF002000424B19 /* LawViewController.swift in Sources */,
+				2A11F98425FBA7C5001BD421 /* ErrorAlert.swift in Sources */,
 				2A01E43825E2A4B600334738 /* ChapterListTableViewCell.swift in Sources */,
 				2A11F96425F1205F001BD421 /* ParagraphRepository.swift in Sources */,
 				2A01E42225D91A3400334738 /* ParagraphViewController.swift in Sources */,
