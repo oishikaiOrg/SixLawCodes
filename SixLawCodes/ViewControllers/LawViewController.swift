@@ -39,15 +39,11 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let reachability = try! Reachability()
         if reachability.connection == .unavailable {
-            let alert: UIAlertController = UIAlertController(title: "インターネットに接続してください", message: "現在オフラインです。接続を確認してください", preferredStyle: UIAlertController.Style.alert)
-            let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
-                    (action: UIAlertAction!) -> Void in
-//                    print("OK")
-                })
-            alert.addAction(defaultAction)
+            let alert = ErrorAlert.internetError()
             present(alert, animated: true, completion: nil)
             return
         }
+        
         SVProgressHUD.show()
 
         ChapterRepository.fetchChapter(row: indexPath.row) { (data: Data?, response: URLResponse?, error: Error?) in
@@ -55,11 +51,7 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             if xml.error != nil {
                 DispatchQueue.main.async { // メインスレッドで行うブロック
                     SVProgressHUD.dismiss()
-                    let alert: UIAlertController = UIAlertController(title: "データの取得に失敗しました。", message: "時間を置いて再度試して下さい。", preferredStyle: UIAlertController.Style.alert)
-                    let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
-                        (action: UIAlertAction!) -> Void in
-                    })
-                    alert.addAction(defaultAction)
+                    let alert = ErrorAlert.parseError()
                     self.present(alert, animated: true, completion: nil)
                 }
                 return
