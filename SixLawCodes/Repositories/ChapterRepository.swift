@@ -16,7 +16,7 @@ class ChapterRepository {
         let session = URLSession(configuration: config)
         
         let url = URL(string: "https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
-        
+        print("https://elaws.e-gov.go.jp/api/1/lawdata/\(setLawNumber)")
         let task = session.dataTask(with: url, completionHandler: completionHandler)
         task.resume()
 
