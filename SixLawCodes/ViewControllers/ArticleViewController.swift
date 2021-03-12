@@ -100,7 +100,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
             }
             return sentenceCnt
-        }else if self.setLawNumber == "明治二十九年法律第八十九号"{
+        }else if self.setLawNumber == "明治二十九年法律第八十九号" || self.setLawNumber == "明治三十二年法律第四十八号" {
             var sentenceCnt = 0
             let Try = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section
             if Try.all?.count == nil {
@@ -192,7 +192,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 return sentence
             }
             return sentence
-        }else if self.setLawNumber == "明治二十九年法律第八十九号" {
+        }else if self.setLawNumber == "明治二十九年法律第八十九号" || self.setLawNumber == "明治三十二年法律第四十八号" {
             let Try = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Section
             if Try.all?.count == nil {
                 let Paragraph = xml.DataRoot.ApplData.LawFullText.Law.LawBody.MainProvision.Part[self.part].Chapter[self.chapterNum].Article[row].Paragraph
