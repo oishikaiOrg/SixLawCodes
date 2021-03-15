@@ -15,7 +15,9 @@ $ pod install
 
 ## Usage
 
-Run iOS Simulator or iOS Devices<BR>iOS 13.0 and Later
+Xcode 12.4
+Run iOS Simulator or iOS Devices<BR>
+iOS 13.0 and Later
 
 ## Credits
 
