@@ -69,7 +69,7 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 nextVC.chapterNum = chapterNum
                 nextVC.chapterTitles = titles
                 nextVC.setLawNumber = self.lawNumber[indexPath.row]
-                nextVC.partTitle = self.partTitleFlag
+                nextVC.partTitleFlag = self.partTitleFlag
                 nextVC.partTitles = self.partTitles
                 nextVC.title = lawTitle
             }
@@ -108,6 +108,8 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 total += chap
             }
             return total
+        }else if row == 4 {
+            return 7
         }
         return 0
     }
@@ -168,7 +170,12 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     self.partTitles.append(partTitle.element?.text ?? "")
                 }
             }
-
+        }else if row == 4 {
+            let part = 7
+            for i in 0...(part - 1) {
+                let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", i, "PartTitle"]
+                titles.append(text.element?.text ?? "")
+            }
         }
         return titles
     }

@@ -16,11 +16,12 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var chapterNum: Int = 0;
     var setLawNumber = ""
-    var titleSeq: [String] = []
+    var titles: [String] = []
     var chapterTitles: [String] = []
-    var partTitle = false
+    var partTitleFlag = false
     var partTitles: [String] = []
     
+    private var ExceptionStatus = true
     private var part = 0
     private var fixIndex = 0
     
@@ -31,7 +32,7 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChapterListTableViewCell.cellIdentifier, for: indexPath) as! ChapterListTableViewCell
         cell.chapterTitle.text = chapterTitles[indexPath.row]
-        if self.partTitle == true{
+        if self.partTitleFlag == true{
             cell.partTitle.text = partTitles[indexPath.row]
         }
         return cell
@@ -60,24 +61,42 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
                 return
             }
             
-            let articleNum = self.countArticle(data: data, row: indexPath.row)
-            let chapterTitle = self.getChapterTitle(data: data, row: indexPath.row)
-            
-            self.titleSeq = []
-            self.titleSeq = self.getTitleSeq(data: data, articleNum: articleNum, row: indexPath.row)
-            DispatchQueue.main.async { // メインスレッドで行うブロック
-                SVProgressHUD.dismiss()
-                let storyboard = UIStoryboard(name: "Article", bundle: nil)
-                let nextVC = storyboard.instantiateViewController(identifier: "article")as! ArticleViewController
-                self.navigationController?.pushViewController(nextVC, animated: true)
-                nextVC.title = chapterTitle
-                nextVC.articleNum = articleNum
-                nextVC.setLawNumber = self.setLawNumber
-                nextVC.chapterNum = indexPath.row - self.fixIndex
-                nextVC.articleCount = self.titleSeq
-                nextVC.part = self.part
+            if self.setLawNumber == "昭和二十三年法律第百三十一号" && self.ExceptionStatus == true && (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2) {
+                let chapterNum = self.ExCountChapter(data: data, row: indexPath.row)
+                let title = self.ExGetChapterTitle(data: data, row: indexPath.row)
+                
+                DispatchQueue.main.async { // メインスレッドで行うブロック
+                    SVProgressHUD.dismiss()
+                    let storyboard = UIStoryboard(name: "Chapter", bundle: nil)
+                    let nextVC = storyboard.instantiateViewController(identifier: "chapter")as! ChapterViewController
+                    self.navigationController?.pushViewController(nextVC, animated: true)
+                    nextVC.chapterNum = chapterNum
+                    nextVC.chapterTitles = title
+                    nextVC.setLawNumber = self.setLawNumber
+                    nextVC.partTitleFlag = self.partTitleFlag
+                    nextVC.partTitles = self.partTitles
+                    nextVC.title = self.chapterTitles[indexPath.row]
+                    nextVC.part = indexPath.row
+                }
+            }else{
+                let articleNum = self.countArticle(data: data, row: indexPath.row)
+                let chapterTitle = self.getChapterTitle(data: data, row: indexPath.row)
+                
+                self.titles = []
+                self.titles = self.getTitleSeq(data: data, articleNum: articleNum, row: indexPath.row)
+                DispatchQueue.main.async { // メインスレッドで行うブロック
+                    SVProgressHUD.dismiss()
+                    let storyboard = UIStoryboard(name: "Article", bundle: nil)
+                    let nextVC = storyboard.instantiateViewController(identifier: "article")as! ArticleViewController
+                    self.navigationController?.pushViewController(nextVC, animated: true)
+                    nextVC.title = chapterTitle
+                    nextVC.articleNum = articleNum
+                    nextVC.setLawNumber = self.setLawNumber
+                    nextVC.chapterNum = indexPath.row - self.fixIndex
+                    nextVC.articleCount = self.titles
+                    nextVC.part = self.part
+                }
             }
-            
         }
     }
 
@@ -85,9 +104,16 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         let nib = UINib(nibName: ChapterListTableViewCell.cellIdentifier, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: ChapterListTableViewCell.cellIdentifier)
+
+        if self.setLawNumber == "昭和二十三年法律第百三十一号" && self.chapterTitles.count == 7 {
+            self.ExceptionStatus = true
+        }else{
+            self.ExceptionStatus = false
+        }
+        print(ExceptionStatus)
     }
     
-    func countArticle (data: Data?, row : Int) -> Int{
+    func countArticle (data: Data?, row : Int) -> Int {
         let xml = XML.parse(data!)
         if self.setLawNumber == "昭和二十一年憲法" {
             let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Chapter", row, "Article"]
@@ -182,11 +208,21 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             let articleNum = text.all?.count ?? 0
             return articleNum
+        }else if self.setLawNumber == "昭和二十三年法律第百三十一号" {
+            if ExceptionStatus == true {
+                let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", row, "Article"]
+                let artNum = text.all?.count ?? 0
+                return artNum
+            }else {
+                let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", row, "Article"]
+                let artNum = text.all?.count ?? 0
+                return artNum
+            }
         }
         return 0
     }
     
-    func getTitleSeq(data:Data?, articleNum: Int, row : Int) -> [String]{
+    func getTitleSeq(data:Data?, articleNum: Int, row : Int) -> [String] {
         let xml = XML.parse(data!)
         var Seq :[String] = []
         if self.setLawNumber == "昭和二十一年憲法" {
@@ -276,6 +312,24 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
                     Seq.append(text.element?.text ?? "")
                 }
             }
+        }else if self.setLawNumber == "昭和二十三年法律第百三十一号" {
+            if ExceptionStatus == true {
+                let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", row, "Article"]
+                let artNum = text.all?.count ?? 0
+                for i in 0...(artNum - 1) {
+                    let artTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", row, "Article", i, "ArticleTitle"]
+                    let title = artTitle.element?.text ?? ""
+                    Seq.append(title)
+                }
+            }else {
+                let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", row, "Article"]
+                let artNum = text.all?.count ?? 0
+                for i in 0...(artNum - 1) {
+                    let artTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", row, "Article", i, "ArticleTitle"]
+                    let title = artTitle.element?.text ?? ""
+                    Seq.append(title)
+                }
+            }
         }
         return Seq
     }
@@ -300,8 +354,34 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
             let text1 = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter" , (row - self.fixIndex), "ChapterTitle"]
             let chapterTitle = text1.element?.text
             return chapterTitle
+        }else if self.setLawNumber == "明治三十二年法律第四十八号" {
+            let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", self.part, "Chapter", (row - self.fixIndex), "ChapterTitle"]
+            let chapterTitle = text.element?.text
+            return chapterTitle
+        }else if self.setLawNumber == "昭和二十三年法律第百三十一号" {
+            return chapterTitles[row]
         }
         return nil
+    }
+    
+    func ExCountChapter(data: Data?, row: Int) -> Int {
+        let xml = XML.parse(data!)
+        let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", row, "Chapter"]
+        let count = text.all?.count ?? 0
+        return count
+    }
+    
+    func ExGetChapterTitle(data: Data?, row: Int) -> [String] {
+        var titles: [String] = []
+        let xml = XML.parse(data!)
+        let text = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", row, "Chapter"]
+        let count = text.all?.count ?? 0
+        for i in 0...(count - 1) {
+            let parseTitle = xml["DataRoot", "ApplData", "LawFullText", "Law", "LawBody", "MainProvision", "Part", row, "Chapter", i, "ChapterTitle"]
+            let title = parseTitle.element?.text ?? ""
+            titles.append(title)
+        }
+        return titles
     }
 
 }
