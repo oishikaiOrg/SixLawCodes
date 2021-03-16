@@ -18,6 +18,7 @@
 		2A11F95A25F11AFD001BD421 /* ArticleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11F95925F11AFD001BD421 /* ArticleRepository.swift */; };
 		2A11F96425F1205F001BD421 /* ParagraphRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11F96325F1205F001BD421 /* ParagraphRepository.swift */; };
 		2A11F98425FBA7C5001BD421 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A11F98325FBA7C5001BD421 /* ErrorAlert.swift */; };
+		2A21FD632600E0F500F49EAB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2A21FD622600E0F500F49EAB /* Settings.bundle */; };
 		2A3D46F825EDF25D0045BD40 /* ChapterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */; };
 		2A5AC72B25BF002000424B19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72A25BF002000424B19 /* AppDelegate.swift */; };
 		2A5AC72D25BF002000424B19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5AC72C25BF002000424B19 /* SceneDelegate.swift */; };
@@ -43,6 +44,7 @@
 		2A11F95925F11AFD001BD421 /* ArticleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepository.swift; sourceTree = "<group>"; };
 		2A11F96325F1205F001BD421 /* ParagraphRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphRepository.swift; sourceTree = "<group>"; };
 		2A11F98325FBA7C5001BD421 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		2A21FD622600E0F500F49EAB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		2A3D46F725EDF25D0045BD40 /* ChapterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterRepository.swift; sourceTree = "<group>"; };
 		2A5AC72725BF002000424B19 /* SixLawCodes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SixLawCodes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5AC72A25BF002000424B19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				2A5AC73825BF002600424B19 /* Info.plist */,
 				2A5AC72C25BF002000424B19 /* SceneDelegate.swift */,
 				2A11F98325FBA7C5001BD421 /* ErrorAlert.swift */,
+				2A21FD622600E0F500F49EAB /* Settings.bundle */,
 			);
 			path = SixLawCodes;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				2A01E41F25D919E300334738 /* Paragraph.storyboard in Resources */,
 				2A01E41425D8C28300334738 /* Article.storyboard in Resources */,
 				2A01E43125DBF76C00334738 /* SentenceListTableViewCell.xib in Resources */,
+				2A21FD632600E0F500F49EAB /* Settings.bundle in Resources */,
 				2A5AC73225BF002000424B19 /* Law.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
