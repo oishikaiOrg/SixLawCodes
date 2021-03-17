@@ -24,6 +24,10 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var itemCount = 0;
     private var ParagraphSentenceCount = 0;
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articleNum
     }
@@ -74,13 +78,6 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
 
     }
-
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-    
 
     func getNumberOfSentence(data: Data?, row: Int) -> Int{
         let xml = XML.parse(data!)
