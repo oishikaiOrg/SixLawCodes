@@ -14,6 +14,16 @@ class ParagraphViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        
+        let nib = UINib(nibName: SentenceListTableViewCell.cellIdentifier, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: SentenceListTableViewCell.cellIdentifier)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sentence.count
     }
@@ -32,16 +42,5 @@ class ParagraphViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableView.automaticDimension
-        
-        let nib = UINib(nibName: SentenceListTableViewCell.cellIdentifier, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: SentenceListTableViewCell.cellIdentifier)
-    }
     
-    
-
 }

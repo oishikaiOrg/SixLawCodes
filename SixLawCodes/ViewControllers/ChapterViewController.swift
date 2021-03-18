@@ -25,6 +25,19 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
     private var part = 0
     private var fixIndex = 0
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let nib = UINib(nibName: ChapterListTableViewCell.cellIdentifier, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: ChapterListTableViewCell.cellIdentifier)
+
+        if self.setLawNumber == "昭和二十三年法律第百三十一号" && self.chapterTitles.count == 7 {
+            self.ExceptionStatus = true
+        }else{
+            self.ExceptionStatus = false
+        }
+        print(ExceptionStatus)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chapterNum
     }
@@ -101,18 +114,6 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let nib = UINib(nibName: ChapterListTableViewCell.cellIdentifier, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: ChapterListTableViewCell.cellIdentifier)
-
-        if self.setLawNumber == "昭和二十三年法律第百三十一号" && self.chapterTitles.count == 7 {
-            self.ExceptionStatus = true
-        }else{
-            self.ExceptionStatus = false
-        }
-        print(ExceptionStatus)
-    }
     
     func countArticle (data: Data?, row : Int) -> Int {
         let xml = XML.parse(data!)
