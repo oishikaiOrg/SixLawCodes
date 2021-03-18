@@ -31,6 +31,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "article", for: indexPath)
         cell.textLabel!.text = articleCount[indexPath.row]
+        tableView.tableFooterView = UIView()
         return cell
     }
     

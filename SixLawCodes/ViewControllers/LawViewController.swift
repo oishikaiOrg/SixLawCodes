@@ -31,6 +31,7 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "code", for: indexPath)
         cell.textLabel!.text = sixCodes[indexPath.row]
+        tableView.tableFooterView = UIView()
         return cell
     }
     
