@@ -35,6 +35,7 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
         if self.partTitleFlag == true{
             cell.partTitle.text = partTitles[indexPath.row]
         }
+        tableView.tableFooterView = UIView()
         return cell
     }
     
