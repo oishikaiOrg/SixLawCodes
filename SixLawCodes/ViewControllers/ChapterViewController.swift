@@ -49,6 +49,11 @@ class ChapterViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.partTitle.text = partTitles[indexPath.row]
         }
         tableView.tableFooterView = UIView()
+        
+        if self.setLawNumber == "昭和二十一年憲法" {
+            cell.accessoryType = .disclosureIndicator
+        }
+        
         return cell
     }
     

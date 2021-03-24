@@ -13,15 +13,17 @@ import SVProgressHUD
 
 class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let sixCodes = ["憲法", "刑法", "民法", "商法", "刑事訴訟法", "民事訴訟法"]
-    let lawNumber = ["昭和二十一年憲法","明治四十年法律第四十五号", "明治二十九年法律第八十九号", "明治三十二年法律第四十八号", "昭和二十三年法律第百三十一号", "昭和二十三年法律第百三十一号"]
-    
+//    let sixCodes = ["憲法", "刑法", "民法", "商法", "刑事訴訟法", "民事訴訟法"]
+    let sixCodes = ["憲法", "刑法", "民法", "商法"]
+//    let lawNumber = ["昭和二十一年憲法","明治四十年法律第四十五号", "明治二十九年法律第八十九号", "明治三十二年法律第四十八号", "昭和二十三年法律第百三十一号", "昭和二十三年法律第百三十一号"]
+    let lawNumber = ["昭和二十一年憲法","明治四十年法律第四十五号", "明治二十九年法律第八十九号", "明治三十二年法律第四十八号"]
+
     var partTitleFlag = false
     var partTitles:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "六法全書 Viwer"
+        title = "ミニ六法"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -31,6 +33,7 @@ class LawViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "code", for: indexPath)
         cell.textLabel!.text = sixCodes[indexPath.row]
+        cell.accessoryType = .disclosureIndicator
         tableView.tableFooterView = UIView()
         return cell
     }

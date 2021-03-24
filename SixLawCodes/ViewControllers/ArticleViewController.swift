@@ -36,6 +36,7 @@ class ArticleViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "article", for: indexPath)
         cell.textLabel!.text = articleCount[indexPath.row]
         tableView.tableFooterView = UIView()
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
     
